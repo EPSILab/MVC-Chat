@@ -46,16 +46,27 @@ namespace MVChat.ViewController.Controllers
 
         public ActionResult Index()
         {
-            return View(_messages);
+            return View(_messages.OrderByDescending(m => m.Date));
         }
 
         //
         // POST: /Home/Login
 
         [HttpPost]
-        public ActionResult Login()
+        public ActionResult Login(string name)
         {
-            return View();
+            var existingUser = _users.FirstOrDefault(u => u.Name == name);
+
+            if (existingUser != null)
+                Session["user"] = existingUser;
+            else
+            {
+                var newUser = new User {Name = name};
+                _users.Add(newUser);
+                Session["user"] = newUser;
+            }
+
+            return RedirectToAction("Index");
         }
 
         #endregion
