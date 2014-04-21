@@ -1,12 +1,45 @@
-﻿@model IEnumerable<MVChat.Model.Message>
+﻿@using MVChat.Model
+@model IEnumerable<Message>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var user = Session["user"] as User;
 }
 
 <h2>Index</h2>
 
+@if (user != null)
+{
+    <h3>Hi @user.Name !</h3>
+
+    using (Html.BeginForm("PostMessage", "Home", FormMethod.Post))
+    {
+        <h4>
+            Title :
+            <input id="title" name="title" type="text" />
+        </h4>
+
+        <h5>
+            Message :
+            <input id="text" name="text" type="text" />
+        </h5>
+
+        <button type="submit">Post message</button>
+    }
+}
+else
+{
+    using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <h3>
+            Writer :
+            <input id="name" name="name" type="text" />
+            <button type="submit">Log in</button>
+        </h3>
+    }
+}
 
 @foreach (var item in Model)
 {
