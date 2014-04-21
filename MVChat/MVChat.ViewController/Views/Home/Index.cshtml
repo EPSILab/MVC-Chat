@@ -11,18 +11,16 @@
 @foreach (var item in Model)
 {
     <div>
-        @if (string.IsNullOrWhiteSpace(item.Title))
-        {
-            <h3>
-                @item.Writer.Name - @item.Date
-            </h3>
-        }
-        else
-        {
-            <h3>
-                @item.Title - @item.Writer.Name - @item.Date
-            </h3>
-        }
+        <h3>
+            @if (string.IsNullOrWhiteSpace(item.Title))
+            {
+                <text>@item.Writer.Name - @item.Date</text>
+            }
+            else
+            {
+                <text>@item.Title - @item.Writer.Name - @item.Date</text>
+            }
+        </h3>
         @item.Text
     </div>
 }
