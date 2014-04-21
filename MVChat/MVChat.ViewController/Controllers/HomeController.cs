@@ -9,15 +9,15 @@ namespace MVChat.ViewController.Controllers
 {
     public class HomeController : Controller
     {
-#region Fields
+        #region Fields
 
-        private IList<User> _users;
-        private IList<Message> _messages; 
+        private List<User> _users;
+        private List<Message> _messages;
 
-#endregion
+        #endregion
 
 
-#region Constructor
+        #region Constructor
 
         public HomeController()
         {
@@ -36,17 +36,17 @@ namespace MVChat.ViewController.Controllers
             };
         }
 
-#endregion
+        #endregion
 
 
-#region Action methods
+        #region Action methods
 
         //
         // GET: /Home/
 
         public ActionResult Index()
         {
-            return View();
+            return View(_messages);
         }
 
         //
@@ -58,6 +58,6 @@ namespace MVChat.ViewController.Controllers
             return View();
         }
 
-#endregion
+        #endregion
     }
 }

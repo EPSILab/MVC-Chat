@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MVChat.Model.Message>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@foreach (var item in Model)
+{
+    <div>
+        @if (string.IsNullOrWhiteSpace(item.Title))
+        {
+            <h3>
+                @item.Writer.Name - @item.Date
+            </h3>
+        }
+        else
+        {
+            <h3>
+                @item.Title - @item.Writer.Name - @item.Date
+            </h3>
+        }
+        @item.Text
+    </div>
+}
+
