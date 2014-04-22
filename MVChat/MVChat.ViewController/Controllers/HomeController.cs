@@ -19,10 +19,10 @@ namespace MVChat.ViewController.Controllers
 
         private static List<Message> _messages = new List<Message>
         {
-            new Message {Writer = _users[0], Text = "Ey !", Date = new DateTime(2014, 4, 21, 13, 27, 42)},
-            new Message {Writer = _users[1], Text = "Ca va ?", Date = new DateTime(2014, 4, 21, 13, 27, 57)},
-            new Message {Writer = _users[0], Text = "T'as vu Cortana ?", Date = new DateTime(2014, 4, 21, 13, 28, 1)},
-            new Message {Writer = _users[1], Text = "Yep", Date = new DateTime(2014, 4, 21, 13, 28, 13)}
+            new Message {Writer = _users[0], Content = "Ey !", Date = new DateTime(2014, 4, 21, 13, 27, 42)},
+            new Message {Writer = _users[1], Content = "Ca va ?", Date = new DateTime(2014, 4, 21, 13, 27, 57)},
+            new Message {Writer = _users[0], Content = "T'as vu Cortana ?", Date = new DateTime(2014, 4, 21, 13, 28, 1)},
+            new Message {Writer = _users[1], Content = "Yep", Date = new DateTime(2014, 4, 21, 13, 28, 13)}
         };
 
         #endregion
