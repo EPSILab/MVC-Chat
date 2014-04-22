@@ -1,4 +1,5 @@
-﻿@using MVChat.Model
+﻿@using System.Net.Mime
+@using MVChat.Model
 @model IEnumerable<Message>
 
 @{
@@ -14,20 +15,17 @@
 {
     <h3>Hi @user.Name !</h3>
 
-    using (Html.BeginForm("PostMessage", "Home", FormMethod.Post))
-    {
-        <h4>
-            Title :
-            <input id="title" name="title" type="text" />
-        </h4>
+    <h4>
+        Title :
+        <input id="title" name="title" type="text" />
+    </h4>
 
-        <h5>
-            Message :
-            <input id="text" name="text" type="text" />
-        </h5>
+    <h5>
+        Message :
+        <input id="content" name="content" type="text" />
+    </h5>
 
-        <button type="submit">Post message</button>
-    }
+    <button id="sendmessage" type="submit">Post message</button>
 }
 else
 {
@@ -54,10 +52,50 @@ else
                 <text>@item.Title - @item.Writer.Name - @item.Date</text>
             }
         </h3>
-        @item.Text
+        @item.Content
     </div>
 }
+<div id="messages">
+
+</div>
 
 @section scripts{
     <script src="~/signalr/hubs"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var username = '@if (user != null)
+                            {
+                                @user.Name
+                            }';
+            var chat = $.connection.messageHub;
+
+            chat.client.showMessage = function (message) {
+                var htmlMessage = '<div>' + '<h3>';
+                if (message.Title != undefined)
+                    htmlMessage += message.Title + ' - ';
+                htmlMessage += message.Writer.Name + ' - ' + message.Date + '</h3>' + message.Content + '</div>';
+
+                $('#messages').append(htmlMessage);
+            }
+
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+
+                    var message = {
+                        title: $('#title').val(),
+                        content: $('#content').val(),
+                        writer: {
+                            name: username
+                        }
+                    };
+
+                    chat.server.sendMessage(message);
+
+                    $('#title').val('');
+                    $('#content').val('Enter a new message').focus();
+                });
+            });
+        });
+    </script>
 }
