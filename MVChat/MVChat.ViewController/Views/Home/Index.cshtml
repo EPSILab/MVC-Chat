@@ -55,7 +55,7 @@ else
                     htmlMessage += message.Title + ' - ';
                 htmlMessage += message.Writer.Name + ' - ' + message.Date + '</h3>' + message.Content + '</div>';
 
-                $('#messages').append(htmlMessage);
+                $('#messages').prepend(htmlMessage);
             }
 
             $.connection.hub.start().done(function () {
