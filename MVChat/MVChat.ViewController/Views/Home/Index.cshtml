@@ -1,7 +1,4 @@
-﻿@using System.Net.Mime
-@using MVChat.Model
-@model IEnumerable<Message>
-
+﻿@using MVChat.Model
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,25 +36,7 @@ else
     }
 }
 
-@foreach (var item in Model)
-{
-    <div>
-        <h3>
-            @if (string.IsNullOrWhiteSpace(item.Title))
-            {
-                <text>@item.Writer.Name - @item.Date</text>
-            }
-            else
-            {
-                <text>@item.Title - @item.Writer.Name - @item.Date</text>
-            }
-        </h3>
-        @item.Content
-    </div>
-}
-<div id="messages">
-
-</div>
+<div id="messages"></div>
 
 @section scripts{
     <script src="~/signalr/hubs"></script>
@@ -72,7 +51,7 @@ else
 
             chat.client.showMessage = function (message) {
                 var htmlMessage = '<div>' + '<h3>';
-                if (message.Title != undefined)
+                if (message.Title != undefined && message.Title != '')
                     htmlMessage += message.Title + ' - ';
                 htmlMessage += message.Writer.Name + ' - ' + message.Date + '</h3>' + message.Content + '</div>';
 
